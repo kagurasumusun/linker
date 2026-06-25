@@ -135,36 +135,6 @@ AM_PROG_AS([clang])
 AC_CHECK_TOOL([HOST_RANLIB], [ranlib], :)
 AC_CHECK_TOOL([HOST_AR], [ar], :)
 
-#for libstuff emulated.c
-case $target_cpu in
-     powerpc)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 18, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 100, [Emulated CPU subtype])
-    ;;
-     powerpc64*)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 16777234, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 0, [Emulated CPU subtype])
-       ;;
-     i?86)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 7, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 10, [Emulated CPU subtype])
-    ;;
-     x86_64|amd64)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 16777223, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 3, [Emulated CPU subtype])
-    ;;
-     arm64*|aarch64)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 16777228, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 0, [Emulated CPU subtype])
-    ;;
-     arm*)
-        AC_DEFINE(EMULATED_HOST_CPU_TYPE, 12, [Emulated CPU type])
-        AC_DEFINE(EMULATED_HOST_CPU_SUBTYPE, 0, [Emulated CPU subtype])
-    ;;
-     *)
-    AC_MSG_ERROR([Unsupported target $target_cpu])
-    ;;
-esac
 
 # as reported, some users may use llvm-c/Disassembler.h instead of a local copy in include dir.
 # add these macros to avoid compilation failures.
@@ -564,13 +534,7 @@ AC_C_BIGENDIAN([AC_SUBST([ENDIAN_FLAG],[-D__BIG_ENDIAN__=1])],
       [AC_SUBST([ENDIAN_FLAG],[-D__LITTLE_ENDIAN__=1])])
 
 
-AC_CONFIG_FILES([Makefile libstuff/Makefile libmacho/Makefile])
-AC_CONFIG_FILES([ar/Makefile])
-AC_CONFIG_FILES([as/Makefile])
-AC_CONFIG_FILES([man/Makefile])
-AC_CONFIG_FILES([misc/Makefile])
-AC_CONFIG_FILES([otool/Makefile])
-AC_CONFIG_FILES([efitools/Makefile])
+AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([ld64/Makefile])
 AC_CONFIG_FILES([ld64/doc/man/Makefile])
 AC_CONFIG_FILES([ld64/src/Makefile])
